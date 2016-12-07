@@ -43,13 +43,16 @@ myApp.config(["$routeProvider", function($routeProvider) {
 }]);
 
 // Make a factory to query the front page posts
-myApp.factory('PostsFactory', ['$http', function($http) {
+myApp.factory('PostsFactory', ['$http', '$q', function($http, $q) {
 	return {
-		frontPageEvents: function() {
-			return $http.get(appInfo.api_url + 'posts?filter[category_name]=front-page-events');
-		},
-		allEvents: function() {
-			return $http.get(appInfo.api_url + 'posts');
+		posts: function(categoryName) {
+			// Use $http and $q to get a promise from json object
+			var deferred = $q.defer();
+			var httpPromise = $http.get(appInfo.api_url + 'posts?filter[category_name]=' + categoryName, {cache: true});
+			httpPromise.then(function (response) { 
+				deferred.resolve(response);
+			});
+			return deferred.promise;
 		}
 	};
 }]);
@@ -57,17 +60,12 @@ myApp.factory('PostsFactory', ['$http', function($http) {
 
 // Make a controller for the home page
 myApp.controller('homeController', ['$scope', '$http', 'PostsFactory', function($scope, $http, PostsFactory) {
-	// Store the JSON of the data to be displayed as events
-	// posts?filter[category_name]=front-page
-	PostsFactory.frontPageEvents()
+	// Call the posts factory with the category of front page events
+	PostsFactory.posts('front-page-events')
 	.then(function(response) {
 		console.log(response.data); // for testing
 		$scope.events = response.data; // set the events
-	}, // Error Handling
-		function rejected (response) {
-	  	alert(response.status + ': ' + response.statusText);
-		}
-	);
+	});
 
 	//$scope.events = events;
 	$scope.stories = stories;
@@ -77,15 +75,11 @@ myApp.controller('homeController', ['$scope', '$http', 'PostsFactory', function(
 
 // Make a controller for each event
 myApp.controller('eventController', ['$scope', '$routeParams', 'PostsFactory', function($scope, $routeParams, PostsFactory) {
-	PostsFactory.allEvents()
+	PostsFactory.posts('events')
 	.then(function(response) {
-		console.log(response.data);
-		$scope.events = response.data;
-	},
-		function rejected (response) {
-	  	alert(response.status + ': ' + response.statusText);
-		}
-	);
+		console.log(response.data); // for testing
+		$scope.events = response.data; // set the events
+	});
 }]);
 
 // Data to be stored
