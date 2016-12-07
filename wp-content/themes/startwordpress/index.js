@@ -10,14 +10,14 @@ myApp.config(["$routeProvider", function($routeProvider) {
 		controller : 'homeController'
 	})
 
-	.when('/events', {
-		templateUrl : appInfo.template_directory + 'pages/events.min.html',
-		controller : 'eventController'
-	})
-
 	.when('/events/:id', {
 		templateUrl : appInfo.template_directory + 'pages/event-template.min.html',
 		controller : 'displayEventController'
+	})
+
+	.when('/events', {
+		templateUrl : appInfo.template_directory + 'pages/events.min.html',
+		controller : 'eventController'
 	})
 
 	.when('/contact', {
@@ -59,13 +59,25 @@ myApp.factory('PostsFactory', ['$http', '$q', function($http, $q) {
 	};
 }]);
 
-// Make a factory to query the front page posts
-
+// Make a factory to query a post
+myApp.factory('DisplayPostFactory', ['$http', '$q', function($http, $q) {
+	return {
+		post: function(postSlug) {
+			// Use $http and $q to get a promise from json object
+			var deferred = $q.defer();
+			var httpPromise = $http.get(appInfo.api_url + 'posts?filter[name]=' + postSlug, {cache: true});
+			httpPromise.then(function (response) { 
+				deferred.resolve(response);
+			});
+			return deferred.promise;
+		}
+	};
+}]);
 
 // Controllers
 
 // Make a controller for the home page
-myApp.controller('homeController', ['$scope', '$http', 'PostsFactory', function($scope, $http, PostsFactory) {
+myApp.controller('homeController', ['$scope', 'PostsFactory', function($scope, PostsFactory) {
 	// Call the posts factory with the category of front page events
 	PostsFactory.posts('front-page-events')
 	.then(function(response) {
@@ -79,8 +91,8 @@ myApp.controller('homeController', ['$scope', '$http', 'PostsFactory', function(
 
 
 
-// Make a controller for each event
-myApp.controller('eventController', ['$scope', '$routeParams', 'PostsFactory', function($scope, $routeParams, PostsFactory) {
+// Make a controller for all the events
+myApp.controller('eventController', ['$scope', 'PostsFactory', function($scope, PostsFactory) {
 	PostsFactory.posts('events')
 	.then(function(response) {
 		console.log(response.data); // for testing
@@ -88,8 +100,15 @@ myApp.controller('eventController', ['$scope', '$routeParams', 'PostsFactory', f
 	});
 }]);
 
-// Make a controller to display the page
-
+// Make a controller to display the event
+myApp.controller('displayEventController', ['$scope', '$routeParams', 'DisplayPostFactory', function($scope, $routeParams, DisplayPostFactory) {
+	DisplayPostFactory.post($routeParams.id)
+	.then(function(response) {
+		console.log(response.data); // for testing
+		$scope.post = response.data[0];
+		console.log(response.data[0].title);
+	});
+}]);
 
 // Alumni Stories
 var stories = [
