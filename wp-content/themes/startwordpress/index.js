@@ -42,6 +42,8 @@ myApp.config(["$routeProvider", function($routeProvider) {
 	
 }]);
 
+// Factories
+
 // Make a factory to query the front page posts
 myApp.factory('PostsFactory', ['$http', '$q', function($http, $q) {
 	return {
@@ -57,6 +59,10 @@ myApp.factory('PostsFactory', ['$http', '$q', function($http, $q) {
 	};
 }]);
 
+// Make a factory to query the front page posts
+
+
+// Controllers
 
 // Make a controller for the home page
 myApp.controller('homeController', ['$scope', '$http', 'PostsFactory', function($scope, $http, PostsFactory) {
@@ -82,156 +88,7 @@ myApp.controller('eventController', ['$scope', '$routeParams', 'PostsFactory', f
 	});
 }]);
 
-// Data to be stored
-// Events
-/*
-var events = [
-	{
-		name: 'Homecoming',
-		date: '11/28/2016',
-		time: '5:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article"
-	},
-	{
-		name: 'Homecoming2',
-		date: '11/18/2016',
-		time: '7:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_1_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/15/2016',
-		time: '4:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_second_article"
-	},
-	{	
-		name: 'Homecoming',
-		date: '11/16/2016',
-		time: '5:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/18/2016',
-		time: '7:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_second_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/15/2016',
-		time: '4:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article" 
-	},
-	{
-		name: 'Homecoming',
-		date: '11/16/2016',
-		time: '5:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_second_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/18/2016',
-		time: '7:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/15/2016',
-		time: '4:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article" 
-	},
-	{
-		name: 'Homecoming',
-		date: '11/16/2016',
-		time: '5:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_second_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/18/2016',
-		time: '7:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/15/2016',
-		time: '4:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article" 
-	},
-	{
-		name: 'Homecoming',
-		date: '11/16/2016',
-		time: '5:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_second_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/18/2016',
-		time: '7:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/15/2016',
-		time: '4:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article" 
-	},
-	{
-		name: 'Homecoming',
-		date: '11/16/2016',
-		time: '5:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_second_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/18/2016',
-		time: '7:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_first_article"
-	},
-	{
-		name: 'Homecoming',
-		date: '11/15/2016',
-		time: '4:00 PM',
-		summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod elit sit amet condimentum mollis. Mauris commodo malesuada urna, pellentesque eleifend",
-		image: "https://placehold.it/250x200",
-		id: "my_second_article"
-	}
-];
-*/
+// Make a controller to display the page
 
 
 // Alumni Stories
