@@ -1,0 +1,36 @@
+<div id="Carousel" class="carousel slide">
+    <ol class="carousel-indicators">
+        <li data-target="#Carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#Carousel" data-slide-to="1"></li>
+        <li data-target="#Carousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active"><img class="img-responsive carousel-image" src="http://alumni.smc.edu/Images/alumni/benbanner2.jpg" alt="placeholder"></div>
+        <div class="item"><img class="img-responsive carousel-image" src="https://placehold.it/1401x700" alt="placeholder"></div>
+        <div class="item"><img class="img-responsive carousel-image" src="https://placehold.it/1402x700" alt="placeholder"></div>
+    </div><a href="#/" class="left carousel-control" data-target="#Carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span> </a><a href="#/" class="right carousel-control" data-target="#Carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a></div>
+<div class="container">
+    <h2>Events</h2>
+    <hr>
+    <div class="event col-sm-4 text-center" ng-repeat="event in events | orderBy: '-time':true | limitTo: 3">
+        <div class="card panel panel-default">
+            <a ng-href="/#/events/{{event.slug}}"><img class="img-responsive center-block" ng-src="{{ event.acf.thumbnail }}" width="250"></a>
+            <h4>{{ event.title.rendered }}</h4>
+            <p class="date-time">{{ event.acf.date | date}} <span class="time">{{ event.acf.time}}</span></p>
+            <p class="event-desc" ng-bind-html="event.acf.summary | to_trusted"></p>
+        </div>
+    </div><a href="#events" class="more">See more</a></div>
+<div class="container">
+    <h2>Alumni Spotlight</h2>
+    <hr>
+    <div class="event col-sm-4 text-center" ng-repeat="story in stories">
+        <div class="card panel panel-default"><img class="img-responsive center-block" src="https://placehold.it/250x200">
+            <h4>{{ story.name }}</h4>
+            <p class="event-desc">{{ story.description }}</p>
+        </div>
+    </div><a href="#" class="more">See more</a></div>
+<script type="text/javascript">
+    jQuery('.carousel').carousel({
+        interval: 2000,
+    });
+</script>
