@@ -64,8 +64,9 @@ myApp.factory('DisplayPostFactory', ['$http', '$q', function($http, $q) {
 	return {
 		post: function(postSlug) {
 			// Use $http and $q to get a promise from json object
+			console.log('postSlug is ' + postSlug);
 			var deferred = $q.defer();
-			var httpPromise = $http.get(appInfo.api_url + 'posts?filter[name]=' + postSlug, {cache: true});
+			var httpPromise = $http.get(appInfo.api_url + 'posts?slug=' + postSlug, {cache: true});
 			httpPromise.then(function (response) { 
 				deferred.resolve(response);
 			});
@@ -104,9 +105,9 @@ myApp.controller('eventController', ['$scope', 'PostsFactory', function($scope, 
 myApp.controller('displayEventController', ['$scope', '$routeParams', 'DisplayPostFactory', function($scope, $routeParams, DisplayPostFactory) {
 	DisplayPostFactory.post($routeParams.id)
 	.then(function(response) {
+		console.log('Data is')
 		console.log(response.data); // for testing
 		$scope.post = response.data[0];
-		console.log(response.data[0].title);
 	});
 }]);
 
@@ -128,9 +129,22 @@ var stories = [
 	}
 ];
 
+// Filters
+
 // Filter to inject html directly into app
 myApp.filter( 'to_trusted', ['$sce', function( $sce ){
 	return function( text ) {
 		return $sce.trustAsHtml( text );
 	}
-}])
+}]);
+
+// Filter to check if event is in future
+myApp.filter('inFuture', function() {
+	return function(date) {
+		console.log(date);
+		eventDate = new Date(date);
+		if (eventDate < Date.now()) {
+			return date;
+		}
+	}
+})

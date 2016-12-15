@@ -2,7 +2,7 @@
     <h2>Events</h2>
     <hr>
 
-    <div class="event col-sm-4 text-center" ng-repeat="event in events | orderBy: '-time':true | limitTo: 15">
+    <div class="event col-sm-4 text-center" ng-repeat="event in events | orderBy: '-acf.date':true | limitTo: 15">
         <div class="card panel panel-default">
             <a ng-href="/#/events/{{event.slug}}"><img class="img-responsive center-block" ng-src="{{ event.acf.thumbnail }}" width="250"></a>
             <h4>{{ event.title.rendered }}</h4>
