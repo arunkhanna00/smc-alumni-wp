@@ -6,7 +6,7 @@ myApp.config(["$routeProvider", function($routeProvider) {
 	$routeProvider
 
 	.when('/', {
-		templateUrl : appInfo.template_directory + 'pages/home.min.html',
+		templateUrl : appInfo.template_directory + 'pages/home.html',
 		controller : 'homeController'
 	})
 
@@ -17,6 +17,16 @@ myApp.config(["$routeProvider", function($routeProvider) {
 
 	.when('/events', {
 		templateUrl : appInfo.template_directory + 'pages/events.min.html',
+		controller : 'eventController'
+	})
+
+	.when('/upcoming-events', {
+		templateUrl : appInfo.template_directory + 'pages/upcoming-events.min.html',
+		controller : 'eventController'
+	})
+
+	.when('/past-events', {
+		templateUrl : appInfo.template_directory + 'pages/past-events.min.html',
 		controller : 'eventController'
 	})
 
@@ -85,7 +95,7 @@ myApp.controller('homeController', ['$scope', 'PostsFactory', function($scope, P
 		console.log(response.data); // for testing
 		$scope.events = response.data; // set the events
 	});
-
+	console.log(appInfo.slider);
 	//$scope.events = events;
 	$scope.stories = stories;
 }]);
@@ -99,6 +109,18 @@ myApp.controller('eventController', ['$scope', 'PostsFactory', function($scope, 
 		console.log(response.data); // for testing
 		$scope.events = response.data; // set the events
 	});
+	// Filter to check if event is in future
+	$scope.inFuture = function(event) {
+		eventDate = new Date(event.acf.date);
+		return eventDate > Date.now();
+	};
+
+	// Filter to check if event is in future
+	$scope.inPast = function(event) {
+		eventDate = new Date(event.acf.date);
+		return eventDate < Date.now();
+	};
+
 }]);
 
 // Make a controller to display the event
@@ -138,13 +160,3 @@ myApp.filter( 'to_trusted', ['$sce', function( $sce ){
 	}
 }]);
 
-// Filter to check if event is in future
-myApp.filter('inFuture', function() {
-	return function(date) {
-		console.log(date);
-		eventDate = new Date(date);
-		if (eventDate < Date.now()) {
-			return date;
-		}
-	}
-})
