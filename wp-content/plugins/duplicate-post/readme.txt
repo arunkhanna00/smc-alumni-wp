@@ -4,7 +4,7 @@ Donate link: 		http://lopo.it/duplicate-post-plugin/
 Tags: 				duplicate post, copy, clone
 Requires at least: 	3.6
 Tested up to: 		4.7
-Stable tag: 		3.1.1
+Stable tag: 		3.1.2
 License: 			GPLv2 or later
 License URI: 		http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,9 @@ If Duplicate Post is still in English, or if there are some untraslated strings,
 
 == Upgrade Notice ==
 
+= 3.1.2 =
+Fixes the problem with custom fields
+
 = 3.1.1 =
 Bulk clone + custom field wildcards + other features + bugfixes + fix for nasty nag
 
@@ -142,6 +145,9 @@ Some users have experienced a fatal error when upgrading to v1.1: this may fix i
 New features and customization, WP 3.0 compatibility: you should upgrade if you want to copy Custom Posts with Custom Taxonomies.
 
 == Changelog ==
+
+= 3.1.2 =
+* Fix for custom fields not copied
 
 = 3.1.1 =
 * Fix for nasty update nag (plus a failsafe checkbox)

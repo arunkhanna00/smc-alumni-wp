@@ -35,7 +35,7 @@
               <li class="dropdown">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Media <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="https://medium.com/" target="_blank">Alunmi Stories</a></li>
+                  <li><a href="https://medium.com/" target="_blank">Alumni Stories</a></li>
                   <li><a href="https://youtube.com/" target="_blank">Graduation Videos</a></li>
                   <li><a href="https://youtube.com/" target="_blank">Proud To Be SMC</a></li>
                   <li><a href="https://instagram.com/" target="_blank">Gallery</a></li>

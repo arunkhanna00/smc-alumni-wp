@@ -18,7 +18,8 @@ class wp_ng_theme {
 				'api_url'			 => rest_get_url_prefix() . '/wp/v2/',
 				'template_directory' => get_template_directory_uri() . '/',
 				'nonce'				 => wp_create_nonce( 'wp_rest' ),
-				'is_admin'			 => current_user_can('administrator')
+				'is_admin'			 => current_user_can('administrator'),
+				'slider'			 => do_shortcode("[huge_it_slider id='1']")
 				
 			)
 		);
