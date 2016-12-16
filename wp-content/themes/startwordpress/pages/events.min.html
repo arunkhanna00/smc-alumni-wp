@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Events</h2><hr>
+    <div class="container">
+        <h3>Upcoming Events</h3><hr>
+        <div class="event col-sm-4 text-center" ng-repeat="event in events | filter:inFuture | orderBy:'acf.date' | limitTo: 9">
+            <div class="card panel panel-default">
+                <a ng-href="/#/events/{{event.slug}}"><img class="img-responsive center-block" ng-src="{{ event.acf.thumbnail }}" width="250"></a>
+                <h4>{{ event.title.rendered }}</h4>
+                <p class="date-time">{{ event.acf.date | date}} <span class="time">{{ event.acf.time}}</span></p>
+                <p class="event-desc" ng-bind-html="event.acf.excerpt | to_trusted"></p>
+            </div>
+        </div>
+    </div>
+    <a href="/#/upcoming-events" class="more">All Upcoming Events</a>
+ 
+    <div class="container">
+        <h3>Past Events</h3><hr>
+        <div class="event col-sm-4 text-center" ng-repeat="event in events | filter:inPast | orderBy:'-acf.date' | limitTo: 15">
+            <div class="card panel panel-default">
+                <a ng-href="/#/events/{{event.slug}}"><img class="img-responsive center-block" ng-src="{{ event.acf.thumbnail }}" width="250"></a>
+                <h4>{{ event.title.rendered }}</h4>
+                <p class="date-time">{{ event.acf.date | date}} <span class="time">{{ event.acf.time}}</span></p>
+                <p class="event-desc" ng-bind-html="event.acf.excerpt | to_trusted"></p>
+            </div>
+        </div>
+    </div>
+    <a href="/#/past-events" class="more">All Past Events</a>
+</div>
