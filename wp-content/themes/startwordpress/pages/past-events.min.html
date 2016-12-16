@@ -1,0 +1,11 @@
+<div class="container">
+    <h1>Past Events</h1><hr>
+    <div class="event col-sm-4 text-center" ng-repeat="event in events | filter:inPast | orderBy:'-acf.date'">
+        <div class="card panel panel-default">
+            <a ng-href="/#/events/{{event.slug}}"><img class="img-responsive center-block" ng-src="{{ event.acf.thumbnail }}" width="250"></a>
+            <h4>{{ event.title.rendered }}</h4>
+            <p class="date-time">{{ event.acf.date | date}} <span class="time">{{ event.acf.time}}</span></p>
+            <p class="event-desc" ng-bind-html="event.acf.excerpt | to_trusted"></p>
+        </div>
+    </div>
+</div>
