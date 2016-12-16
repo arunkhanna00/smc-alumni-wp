@@ -1,3 +1,3 @@
 <?php get_header(); ?>
-  <div ng-view></div>
+  <div ng-view autoscroll="true"></div>
 <?php get_footer(); ?>
